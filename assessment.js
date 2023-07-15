@@ -14,16 +14,26 @@ assessmentButton.onclick = () => {
     // 診断結果表示エリアの作成
     resultDivided.innerText = ``
 
-    const header = document.createElement(`h3`);
-    header.innerText = `診断結果`;
-    resultDivided.appendChild(header);
+    const headerDivided = document.createElement(`div`);
+    headerDivided.setAttribute(`class`, `card-header`);
+    headerDivided.innerText = `診断結果`;
+
+    const bodyDivided = document.createElement(`div`);
+    bodyDivided.setAttribute(`class`, `card-body`);
 
     const paragraph = document.createElement(`p`);
+    paragraph.setAttribute(`class`, `card-text`);
     const result = assessment(userName);
     paragraph.innerText = result;
-    resultDivided.appendChild(paragraph);
+    bodyDivided.appendChild(paragraph);
 
-    // TODO ツイートエリアの作成
+    resultDivided.setAttribute(`class`, `card`);
+    resultDivided.setAttribute(`style`, `max-width: 700px;`);
+
+    resultDivided.appendChild(headerDivided);
+    resultDivided.appendChild(bodyDivided);
+
+    // ツイートエリアの作成
     tweetDivided.innerText = ``;
     const anchor = document.createElement(`a`);
     const hrefValue =
@@ -86,12 +96,13 @@ function assessment(userName) {
     return result;
 }
 
+
+//テスト
 console.assert(
     assessment(`太郎`) ===
     '太郎のいいところは決断力です。太郎がする決断にいつも助けられる人がいます。',
     '診断結果の文言の特定の部分を名前に置き換える処理が正しくありません。'
 )
-
 console.assert(
     assessment(`太郎`) === assessment(`太郎`),
     '入力が同じ名前なら同じ診断結果を出力する処理が正しくありません。'
